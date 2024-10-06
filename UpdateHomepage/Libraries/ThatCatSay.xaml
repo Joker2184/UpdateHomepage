@@ -13,7 +13,7 @@
                         <ColumnDefinition />
                         <ColumnDefinition Width="150" />
                     </Grid.ColumnDefinitions>
-                    <local:MyListItem IsHitTestVisible="False" Title="龙腾猫跃" Margin="-5,0,15,0" Info="2024年10月01日 04:01" Grid.Row="0" Grid.Column="1" />
+                    <local:MyListItem IsHitTestVisible="False" Title="龙腾猫跃" Margin="-5,0,15,0" Info="2024 年 10 月 01 日 04:01" Grid.Row="0" Grid.Column="1" />
                     <Image Source="/Plain Craft Launcher 2;component/Images/Heads/LTCat.jpg" Grid.Row="0" Margin="3">
                         <Image.Clip>
                             <EllipseGeometry Center="17 17" RadiusX="17" RadiusY="17" />
@@ -34,7 +34,7 @@
     </StackPanel>
     <WrapPanel Margin="-10,0,0,4" Orientation="Horizontal" VerticalAlignment="Center">
     <local:MyIconTextButton Text="检查更新" ToolTip="检查更新以获取最新版本" EventType="切换页面" EventData="3|2" LogoScale="1.05" Logo="{StaticResource LaunchIcon}" />
-    <local:MyIconTextButton Text="获取PCL2正式版" ToolTip="P.s你都能查看主页了不能点一下切换后的检查更新吗 Orz" EventType="打开网页" EventData="https://afdian.com/p/0164034c016c11ebafcb52540025c377" LogoScale="0.95" Logo="{StaticResource DownloadIcon}" />
+    <local:MyIconTextButton Text="获取 PCL2 正式版" ToolTip="PS. 你都能查看主页了不能点一下切换后的检查更新吗 Orz" EventType="打开网页" EventData="https://afdian.com/p/0164034c016c11ebafcb52540025c377" LogoScale="0.95" Logo="{StaticResource DownloadIcon}" />
     </WrapPanel>
     </StackPanel>
   </Grid>

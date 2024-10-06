@@ -7,13 +7,13 @@
     <StackPanel>
     <StackPanel VerticalAlignment="Center" Margin="0,0,0,4">
 <TextBlock FontSize="18" Foreground="{DynamicResource ColorBrush3}"><Bold>PCL2 新闻速报 By Joker2184</Bold></TextBlock>
-    <TextBlock FontSize="12" Foreground="{DynamicResource ColorBrush3}" Text="Get Update Quickly - HomepageBuilder构建生成"/>
-    <TextBlock FontSize="12" Foreground="{DynamicResource ColorBrush3}" Text="更新时间:专栏更新当天18点前后"/>
+    <TextBlock FontSize="12" Foreground="{DynamicResource ColorBrush3}" Text="Get Update Quickly - HomepageBuilder 构建生成"/>
+    <TextBlock FontSize="12" Foreground="{DynamicResource ColorBrush3}" Text="更新时间：专栏更新当天 18 点前后"/>
     <local:MyTextButton FontSize="12" Foreground="{DynamicResource ColorBrush3}" Text="CC BY-NC-SA 4.0 - 基于 News 设计 - Designed by 最亮的信标" EventType="打开网页"
     EventData="https://github.com/Light-Beacon/PCL2-NewsHomepage/blob/main/LICENSE-CONTENT"/>
     </StackPanel>
     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="-8,4,0,10">
-    <local:MyIconTextButton HorizontalAlignment="Left" Text="提交PCL Bug" ToolTip="快速提交PCL2Bug！" EventType="打开网页"
+    <local:MyIconTextButton HorizontalAlignment="Left" Text="提交 PCL Bug" ToolTip="快速提交 PCL2 Bug！" EventType="打开网页"
     EventData="https://github.com/Hex-Dragon/PCL2/issues/new/choose"
     LogoScale="1" Logo="{StaticResource GithubIcon}"/>
     <local:MyIconTextButton HorizontalAlignment="Left" Text="主页反馈" ToolTip="反馈问题" EventType="打开网页"
