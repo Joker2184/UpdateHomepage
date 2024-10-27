@@ -1,8 +1,0 @@
-components:
- - $VersionArchiveList|${cat}
-base: Card
-fill:
-   title: 版本列表
-cover:
-   canswap: false
-   isswaped: false
