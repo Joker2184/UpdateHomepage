@@ -164,7 +164,7 @@ M512 42.666667A464.64 464.64 0 0 0 42.666667 502.186667 460.373333 460.373333 0 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45" />
                 </Grid.RowDefinitions>
-                <local:MyListItem Title="PR#5508" Margin="-10,0,0,0" IsHitTestVisible="False" Info="Chore:移除 ClientToken & 对 ModLaunch 刷新请求部分进行解耦合" Grid.Row="0" Grid.Column="1"/>
+                <local:MyListItem Title="PR#5508" Margin="-10,0,0,0" IsHitTestVisible="False" Info="Chore:移除 ClientToken &amp; 对 ModLaunch 刷新请求部分进行解耦合" Grid.Row="0" Grid.Column="1"/>
             </Grid>
         </StackPanel>
         <TextBlock FontSize="16"><Bold>你可以帮忙的PR</Bold></TextBlock>
