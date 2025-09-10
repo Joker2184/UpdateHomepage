@@ -11,9 +11,9 @@ xmlns:local="clr-namespace:PCL;assembly=Plain Craft Launcher 2">
 <Style TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/><Setter Property="HorizontalAlignment" Value="Left"/><Setter Property="FontSize" Value="14"/><Setter Property="Foreground" Value="{DynamicResource ColorBrush1}"/></Style>
 <Style TargetType="FlowDocument"><Setter Property="FontFamily" Value="Microsoft YaHei UI"/><Setter Property="FontSize" Value="14"/><Setter Property="TextAlignment" Value="Left"/><Setter Property="Foreground" Value="{DynamicResource ColorBrush1}"/></Style>
 <Style TargetType="FlowDocumentScrollViewer"><Setter Property="IsSelectionEnabled" Value="False"/><Setter Property="VerticalScrollBarVisibility" Value="Hidden"/><Setter Property="Margin" Value="0"/></Style>
-<Style x:Key="ContentStack" TargetType="StackPanel"><Setter Property="Margin" Value="20,40,20,20"/></Style>
-<Style x:Key="ColoredListItemPara" TargetType="Paragraph"><Setter Property="FontSize" Value="14.5"/><Setter Property="FontWeight" Value="Bold"/><Setter Property="Margin" Value="0,10,0,10"/><Setter Property="LineHeight" Value="10"/><Setter Property="TextIndent" Value="0"/></Style>
 <Style x:Key="Card" TargetType="local:MyCard"><Setter Property="Margin" Value="0,5"/></Style>
+<Style x:Key="ColoredListItemPara" TargetType="Paragraph"><Setter Property="FontSize" Value="14.5"/><Setter Property="FontWeight" Value="Bold"/><Setter Property="Margin" Value="0,10,0,10"/><Setter Property="LineHeight" Value="10"/><Setter Property="TextIndent" Value="0"/></Style>
+<Style x:Key="H2" TargetType="Paragraph"><Setter Property="FontSize" Value="22"/><Setter Property="Margin" Value="0,10,0,5"/><Setter Property="FontWeight" Value="Bold"/><Setter Property="Foreground" Value="{DynamicResource ColorBrush3}"/></Style>
 <ControlTemplate  x:Key="Separator" TargetType="ContentControl">
   <Grid Margin="0,10">
     <Grid.ColumnDefinitions>
@@ -26,21 +26,20 @@ xmlns:local="clr-namespace:PCL;assembly=Plain Craft Launcher 2">
     <Line X1="0" X2="100" Stroke="{DynamicResource ColorBrush4}" StrokeThickness="1.5" HorizontalAlignment="Center" Stretch="Fill" Grid.Column="2" />
   </Grid>
 </ControlTemplate>
-<Style x:Key="H3" TargetType="Paragraph"><Setter Property="FontSize" Value="18"/><Setter Property="Margin" Value="0,10,0,3"/><Setter Property="FontWeight" Value="Bold"/><Setter Property="Foreground" Value="{DynamicResource ColorBrush4}"/></Style>
-<sys:String   x:Key="GithubIcon">
-M512 42.666667A464.64 464.64 0 0 0 42.666667 502.186667 460.373333 460.373333 0 0 0 363.52 938.666667c23.466667 4.266667 32-9.813333 32-22.186667v-78.08c-130.56 27.733333-158.293333-61.44-158.293333-61.44a122.026667 122.026667 0 0 0-52.053334-67.413333c-42.666667-28.16 3.413333-27.733333 3.413334-27.733334a98.56 98.56 0 0 1 71.68 47.36 101.12 101.12 0 0 0 136.533333 37.973334 99.413333 99.413333 0 0 1 29.866667-61.44c-104.106667-11.52-213.333333-50.773333-213.333334-226.986667a177.066667 177.066667 0 0 1 47.36-124.16 161.28 161.28 0 0 1 4.693334-121.173333s39.68-12.373333 128 46.933333a455.68 455.68 0 0 1 234.666666 0c89.6-59.306667 128-46.933333 128-46.933333a161.28 161.28 0 0 1 4.693334 121.173333A177.066667 177.066667 0 0 1 810.666667 477.866667c0 176.64-110.08 215.466667-213.333334 226.986666a106.666667 106.666667 0 0 1 32 85.333334v125.866666c0 14.933333 8.533333 26.88 32 22.186667A460.8 460.8 0 0 0 981.333333 502.186667 464.64 464.64 0 0 0 512 42.666667</sys:String>
-<Style x:Key="H2" TargetType="Paragraph"><Setter Property="FontSize" Value="22"/><Setter Property="Margin" Value="0,10,0,5"/><Setter Property="FontWeight" Value="Bold"/><Setter Property="Foreground" Value="{DynamicResource ColorBrush3}"/></Style>
 <Style x:Key="VersionImageBorder" TargetType="Border"><Setter Property="HorizontalAlignment" Value="Center"/><Setter Property="BorderThickness" Value="4"/><Setter Property="VerticalAlignment" Value="Top"/><Setter Property="BorderBrush" Value="{DynamicResource ColorBrush3}"/><Setter Property="CornerRadius" Value="7"/></Style>
 <Style x:Key="Lp" TargetType="Paragraph"><Setter Property="LineHeight" Value="16"/><Setter Property="TextIndent" Value="0"/></Style>
+<Style x:Key="ContentStack" TargetType="StackPanel"><Setter Property="Margin" Value="20,40,20,20"/></Style>
+<sys:String   x:Key="GithubIcon">
+M512 42.666667A464.64 464.64 0 0 0 42.666667 502.186667 460.373333 460.373333 0 0 0 363.52 938.666667c23.466667 4.266667 32-9.813333 32-22.186667v-78.08c-130.56 27.733333-158.293333-61.44-158.293333-61.44a122.026667 122.026667 0 0 0-52.053334-67.413333c-42.666667-28.16 3.413333-27.733333 3.413334-27.733334a98.56 98.56 0 0 1 71.68 47.36 101.12 101.12 0 0 0 136.533333 37.973334 99.413333 99.413333 0 0 1 29.866667-61.44c-104.106667-11.52-213.333333-50.773333-213.333334-226.986667a177.066667 177.066667 0 0 1 47.36-124.16 161.28 161.28 0 0 1 4.693334-121.173333s39.68-12.373333 128 46.933333a455.68 455.68 0 0 1 234.666666 0c89.6-59.306667 128-46.933333 128-46.933333a161.28 161.28 0 0 1 4.693334 121.173333A177.066667 177.066667 0 0 1 810.666667 477.866667c0 176.64-110.08 215.466667-213.333334 226.986666a106.666667 106.666667 0 0 1 32 85.333334v125.866666c0 14.933333 8.533333 26.88 32 22.186667A460.8 460.8 0 0 0 981.333333 502.186667 464.64 464.64 0 0 0 512 42.666667</sys:String>
 
 </StackPanel.Resources>
-<local:MyCard Title="📰 2.10.6" CanSwap="True" IsSwapped="False" Style="{StaticResource Card}" >
+<local:MyCard Title="📰 2.10.7" CanSwap="True" IsSwapped="False" Style="{StaticResource Card}" >
 <StackPanel Style="{StaticResource ContentStack}">
 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-20,0,0">
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,10">
         <TextBlock Text="PCL 新闻速报" FontSize="32" FontWeight="Bold" Foreground="{DynamicResource ColorBrush3}" HorizontalAlignment="Center" />
         <Border Background="{DynamicResource ColorBrush4}" Opacity="0.8" CornerRadius="3" Padding="6,2" HorizontalAlignment="Center" Margin="0,5,0,0">
-            <TextBlock Text="PCL 现更新至2.10.6" FontSize="16" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" />
+            <TextBlock Text="PCL 现更新至2.10.7" FontSize="16" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" />
         </Border>
     </StackPanel>
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8,6,8,2">
@@ -53,12 +52,12 @@ M512 42.666667A464.64 464.64 0 0 0 42.666667 502.186667 460.373333 460.373333 0 
         <Path Margin="4,0" Width="14" Height="14" Fill="{DynamicResource ColorBrush4}"
               Stretch="Uniform"
               Data="M716.4 110.137c0-18.753-14.72-33.473-33.472-33.473-18.753 0-33.473 14.72-33.473 33.473v33.473h66.993v-33.473zm-334.87 0c0-18.753-14.72-33.473-33.473-33.473s-33.52 14.72-33.52 33.473v33.473h66.993v-33.473zm468.81 33.52H716.4v100.465c0 18.753-14.72 33.473-33.472 33.473a33.145 33.145 0 01-33.473-33.473V143.657H381.53v100.465c0 18.753-14.72 33.473-33.473 33.473a33.145 33.145 0 01-33.473-33.473V143.657H180.6A134.314 134.314 0 0046.66 277.595v535.756A134.314 134.314 0 00180.6 947.289h669.74a134.36 134.36 0 00133.94-133.938V277.595a134.314 134.314 0 00-133.94-133.938zm33.473 267.877H147.126a33.145 33.145 0 01-33.473-33.473c0-18.752 14.72-33.473 33.473-33.473h736.687c18.752 0 33.472 14.72 33.472 33.473a33.145 33.145 0 01-33.472 33.473z"/>
-        <TextBlock FontSize="13" Foreground="{DynamicResource ColorBrush3}" Margin="0,4,3,0">2025-8-15</TextBlock>
+        <TextBlock FontSize="13" Foreground="{DynamicResource ColorBrush3}" Margin="0,4,3,0">2025-9-10</TextBlock>
         <Path Margin="7,0,4,0" Width="14" Height="14" Fill="{DynamicResource ColorBrush4}"
               Stretch="Uniform"
               Data="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/>
         <Border CornerRadius="4" Background="{DynamicResource ColorBrush6}" Margin="2">
-            <local:MyTextButton Margin="4,1" EventType="打开网页" EventData="https://github.com/Hex-Dragon/PCL2/releases/tag/2.10.6">原更新日志</local:MyTextButton>
+            <local:MyTextButton Margin="4,1" EventType="打开网页" EventData="https://github.com/Hex-Dragon/PCL2/releases/tag/2.10.7">原更新日志</local:MyTextButton>
         </Border>
         <Path Margin="7,0,4,-1" Width="14" Height="14" Fill="{DynamicResource ColorBrush4}"
               Stretch="Uniform"
@@ -82,33 +81,62 @@ M512 42.666667A464.64 464.64 0 0 0 42.666667 502.186667 460.373333 460.373333 0 
 </StackPanel>
 <FlowDocumentScrollViewer >
 <FlowDocument>
-<Paragraph>由于 Modrinth 被部分地区墙了，这次加回来了 MCIM 社区资源镜像源，应该能好一些！非常感谢 z0z0r4 提供的支持！</Paragraph><Paragraph>此外，如果最近遇到正版登录报错 400 或 401 的，这次更新之后应该就好了……？</Paragraph><Paragraph Style="{StaticResource H2}">更新内容</Paragraph><List>
-<ListItem><Paragraph Style="{StaticResource Lp}">重新启用 MCIM 社区资源镜像源（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6656">#6656</local:MyTextButton></Underline>，鸣谢 @z0z0r4）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">如果在下载 Mod、整合包时出现问题，这应当会有所帮助……</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">对中国移动云盘导致的网络错误添加提示（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6586">#6586</local:MyTextButton></Underline>，@JimmyKudo1015）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">输入服务器地址时，会自动将中文标点更换成英文的（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6970">#6970</local:MyTextButton></Underline>，PR @youzi-3222）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">移除在下载时返回 MC 版本选择页的提示（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6976">#6976</local:MyTextButton></Underline>，PR @copytiao）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">更换部分主页网址（@Light-Beacon，@Deep-Dark-Forest，@MFn233）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">帮助库编修（Help#428，Help#429，PR @copytiao）</Paragraph></ListItem>
-</List><Paragraph Style="{StaticResource H3}">匿名数据收集</Paragraph><List>
-<ListItem><Paragraph Style="{StaticResource Lp}">当下载失败、PCL 出错、游戏崩溃等事件时，PCL 会匿名上报情况，以通知龙猫 &quot;哦吼，出错了&quot;，让龙猫能更好地修 Bug……（PCL 不会上传或收集任何个人信息，包括上报的东西里面也没有！）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">你可以在设置中关闭上报，不过龙猫就不知道你遇到了什么 Bug 了……</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">详情：<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/discussions/7036">https://github.com/Meloong-Git/PCL/discussions/7036</local:MyTextButton></Underline></Paragraph></ListItem>
+<Paragraph>希望这次能解决一些网络和下载问题……特别是 Modrinth 连不上的、下载卡 99.9% 的，这次更新后应该会好一些！</Paragraph><Paragraph Style="{StaticResource H2}">网络与下载稳定性优化</Paragraph><List>
+<ListItem><Paragraph Style="{StaticResource Lp}">会优先使用 IPv4 访问 Modrinth，以提高成功率（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6887">#6887</local:MyTextButton></Underline>，@bviibvii）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">会根据历史网络请求是否成功来自动切换请求 IP，以提高成功率（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7157">#7157</local:MyTextButton></Underline>，@pover0k）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">会检查特定网络请求返回的是否是 json 格式的文本，如果没有则触发重试，以提高成功率</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">优化网络配置，加快网络请求速度</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">改善多线程下载引擎的资源释放逻辑</Paragraph></ListItem>
+</List><Paragraph>修复了以下 5 个可能导致下载问题的 Bug：</Paragraph><List>
+<ListItem><Paragraph Style="{StaticResource Lp}">大量下载时下载速度可能会越来越慢直至报错（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7007">#7007</local:MyTextButton></Underline>，@SerinaNya）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">可能报错：尝试开始下载线程失败（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7029">#7029</local:MyTextButton></Underline>）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">BMCLAPI 下载可能由于 Too Many Request 判为失败（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7084">#7084</local:MyTextButton></Underline>，@Evernight-Cyrene）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">触发“由于速度过慢断开链接”可能导致下载卡在 99%（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7132">#7132</local:MyTextButton></Underline>，@SkollClassic）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">无法从 MCIM 源下载部分社区资源文件</Paragraph></ListItem>
+</List><Paragraph Style="{StaticResource H2}">其他更新内容</Paragraph><List>
+<ListItem><Paragraph Style="{StaticResource Lp}">若整合包需要 PCL 不兼容的加载器，允许选择跳过它的安装（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/5451">#5451</local:MyTextButton></Underline>，@Hamster-github）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">允许在版本设置中设置禁止更新 Mod，以防整合包玩家误操作（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6610">#6610</local:MyTextButton></Underline>，@USTC-XeF2，PR @wyc-26）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">为整合包打包添加 TaCZ 枪包选项（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6978">#6978</local:MyTextButton></Underline>，@Tianpao，PR @wyc-26）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">禁止 PCL 以任何方式删除整个桌面、我的文档或磁盘根目录——有玩家把这些东西添加成 MC 文件夹，然后忽略警告把 MC 文件夹删了，我的妈呀（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7030">#7030</local:MyTextButton></Underline>，PR @wyc-26）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">扩展 Java 搜索的支持范围（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7151">#7151</local:MyTextButton></Underline>，PR @lingting）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">由于已不再需要，删除手动安装包下载功能</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">优化更新失败时的提示信息</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">更新 8 月赞助者列表，非常感谢大家的支持与鼓励！</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">更新 Mod 数据库</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">崩溃分析优化：</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">优化 Mod 互不兼容的提示信息（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/5115">#5115</local:MyTextButton></Underline>，@MoYuan-CN）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">支持识别 JVM 参数有误导致的崩溃（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7003">#7003</local:MyTextButton></Underline>，@zwz211123，PR @wyc-26）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">优化玩家实体导致崩溃的提示信息（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7032">#7032</local:MyTextButton></Underline>，BiliBili @Boom_mao，PR @pynickle）</Paragraph></ListItem>
 </List><Paragraph Style="{StaticResource H2}">Bug 修复</Paragraph><List>
-<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">复制或剪切文本时可能会卡顿且无法正常复制（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/5172">#5172</local:MyTextButton></Underline>，@hxabcd，PR @ABA2396）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">解压整合包文件可能出现长路径问题（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6844">#6844</local:MyTextButton></Underline>）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">可能无法启动由 HMCL 安装的 Forge 版本（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6896">#6896</local:MyTextButton></Underline>，@rjdxxxxxccc，PR @copytiao）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">正版登录中如果出现账号异常，不会正常提供错误信息（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6900">#6900</local:MyTextButton></Underline>，@ShiHuaideqingxu）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">std in/out 编码参数可能被错误地忽略（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6934">#6934</local:MyTextButton></Underline>，@copytiao）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">以特定方式拖入文件可能导致崩溃（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6950">#6950</local:MyTextButton></Underline>，@bilixxb）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">特定情况下，可能无法进行正版登录（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6995">#6995</local:MyTextButton></Underline>，@Alexei-mo）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">可能会把不是 Windows 用户名的日志给错误地打码了</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">下载失败时可能错误地将下载了一半的文件输出</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">部分主页预设无法访问</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">整合包搜索中科幻类型没有结果（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/1085">#1085</local:MyTextButton></Underline>，@212112111zwl）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">现代化 UI 的标题有意外的“主页”标记（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/1567">#1567</local:MyTextButton></Underline>，@SuoHouDaiShi）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">错误分析误报 Night Config 存在问题，但实际上是配置文件损坏（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/4068">#4068</local:MyTextButton></Underline>，@a8791881，PR @wyc-26）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">返回置顶可能报错 “未找到合适的 RealScroll”（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/5061">#5061</local:MyTextButton></Underline>，@ZEFDERERF，PR @shatyuka）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">若自定义主页内容在 Measure 或 Arrange 阶段出错，会导致 PCL 在打开时闪退（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/5377">#5377</local:MyTextButton></Underline>，@CreeperIsASpy）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">极偶然情况下会错误提示加载 .minecraft 版本列表失败（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/5617">#5617</local:MyTextButton></Underline>）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">可能会高频率检查自定义主页版本（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6245">#6245</local:MyTextButton></Underline>，@copytiao）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">可能无法启动 1.20+：原版无反应，Forge 提示 Timed out trying to setup the Game Window（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6263">#6263</local:MyTextButton></Underline>，鸣谢 @TerseBanjo28710）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">进入页面的动画偶尔与预期不一致（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6602">#6602</local:MyTextButton></Underline>，@Emmm2333doge，PR @shatyuka）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">登录失败：未将对象引用设置到对象的实例（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6683">#6683</local:MyTextButton></Underline>，@Wait911）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">背景音乐数量显示有误（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6855">#6855</local:MyTextButton></Underline>，@YiLouwdkwxcy，PR @copytiao）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">重命名版本失败会导致版本 json 文件被删除（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6876">#6876</local:MyTextButton></Underline>，@ishohsi，PR @pynickle）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">若导出整合包时版本被收藏，其他人导入后版本也会自动被收藏（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6908">#6908</local:MyTextButton></Underline>，@misividkoukou，PR @wyc-26）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">特定情况下无法更改皮肤（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7017">#7017</local:MyTextButton></Underline>）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">若用被封禁的微软账户进行刷新登录，未正确显示错误说明（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7023">#7023</local:MyTextButton></Underline>，PR @pynickle）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">部分登录超时的错误信息未明确提示是登录超时（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7025">#7025</local:MyTextButton></Underline>，PR @wyc-26；<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7135">#7135</local:MyTextButton></Underline>）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">获取 Authlib-Injector 皮肤失败：离线 Uuid 无正版皮肤文件（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7033">#7033</local:MyTextButton></Underline>）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">用于向后兼容的 IsSwapped 属性未正常生效（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7056">#7056</local:MyTextButton></Underline>，PR @Open-KFC）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">MyImage 下载图片可能存在线程冲突（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7112">#7112</local:MyTextButton></Underline>，@Evernight-Cyrene）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">将版本重命名为当前名称末尾加 _temp 导致出错（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7138">#7138</local:MyTextButton></Underline>，@CN171-1）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">参数设置无法正确处理换行（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7159">#7159</local:MyTextButton></Underline>，@FQO3）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">若获取 Authlib-Injector 下载信息失败，会在文件不存在时继续启动，导致游戏崩溃（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7161">#7161</local:MyTextButton></Underline>，@copytiao）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">重置启动设置会导致默认版本隔离设置被误修改</Paragraph></ListItem>
 </List><Paragraph Style="{StaticResource H2}">技术性调整</Paragraph><List>
-<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">修改自定义启动参数设置的名称（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6904">#6904</local:MyTextButton></Underline>，PR @MoYuan-CN）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">IsSwapped 属性拼写错误，应为 IsSwapped（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6971">#6971</local:MyTextButton></Underline>，PR @pynickle）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">新 EventType &quot;修改设置&quot;：允许修改 PCL 的一个设置项（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/6973">#6973</local:MyTextButton></Underline>，PR @Light-Beacon）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">清理代码中的两处中文逗号（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7050">#7050</local:MyTextButton></Underline>，PR @pynickle）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">全面弃用 javaw.exe，改用 java.exe 来启动、安装游戏</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">将所有网络请求都改为使用 ModNet 中的共用 HttpClient</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">MyImage.FallbackSource 现在只支持网络地址</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">修改新闻主页预设的 URL</Paragraph></ListItem>
 </List>
 </FlowDocument>
 </FlowDocumentScrollViewer>
