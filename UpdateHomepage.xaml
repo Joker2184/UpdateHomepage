@@ -11,10 +11,10 @@ xmlns:local="clr-namespace:PCL;assembly=Plain Craft Launcher 2">
 <Style TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/><Setter Property="HorizontalAlignment" Value="Left"/><Setter Property="FontSize" Value="14"/><Setter Property="Foreground" Value="{DynamicResource ColorBrush1}"/></Style>
 <Style TargetType="FlowDocument"><Setter Property="FontFamily" Value="Microsoft YaHei UI"/><Setter Property="FontSize" Value="14"/><Setter Property="TextAlignment" Value="Left"/><Setter Property="Foreground" Value="{DynamicResource ColorBrush1}"/></Style>
 <Style TargetType="FlowDocumentScrollViewer"><Setter Property="IsSelectionEnabled" Value="False"/><Setter Property="VerticalScrollBarVisibility" Value="Hidden"/><Setter Property="Margin" Value="0"/></Style>
+<Style x:Key="H2" TargetType="Paragraph"><Setter Property="FontSize" Value="22"/><Setter Property="Margin" Value="0,10,0,5"/><Setter Property="FontWeight" Value="Bold"/><Setter Property="Foreground" Value="{DynamicResource ColorBrush3}"/></Style>
 <Style x:Key="Card" TargetType="local:MyCard"><Setter Property="Margin" Value="0,5"/></Style>
 <sys:String   x:Key="GithubIcon">
 M512 42.666667A464.64 464.64 0 0 0 42.666667 502.186667 460.373333 460.373333 0 0 0 363.52 938.666667c23.466667 4.266667 32-9.813333 32-22.186667v-78.08c-130.56 27.733333-158.293333-61.44-158.293333-61.44a122.026667 122.026667 0 0 0-52.053334-67.413333c-42.666667-28.16 3.413333-27.733333 3.413334-27.733334a98.56 98.56 0 0 1 71.68 47.36 101.12 101.12 0 0 0 136.533333 37.973334 99.413333 99.413333 0 0 1 29.866667-61.44c-104.106667-11.52-213.333333-50.773333-213.333334-226.986667a177.066667 177.066667 0 0 1 47.36-124.16 161.28 161.28 0 0 1 4.693334-121.173333s39.68-12.373333 128 46.933333a455.68 455.68 0 0 1 234.666666 0c89.6-59.306667 128-46.933333 128-46.933333a161.28 161.28 0 0 1 4.693334 121.173333A177.066667 177.066667 0 0 1 810.666667 477.866667c0 176.64-110.08 215.466667-213.333334 226.986666a106.666667 106.666667 0 0 1 32 85.333334v125.866666c0 14.933333 8.533333 26.88 32 22.186667A460.8 460.8 0 0 0 981.333333 502.186667 464.64 464.64 0 0 0 512 42.666667</sys:String>
-<Style x:Key="VersionImageBorder" TargetType="Border"><Setter Property="HorizontalAlignment" Value="Center"/><Setter Property="BorderThickness" Value="4"/><Setter Property="VerticalAlignment" Value="Top"/><Setter Property="BorderBrush" Value="{DynamicResource ColorBrush3}"/><Setter Property="CornerRadius" Value="7"/></Style>
 <ControlTemplate  x:Key="Separator" TargetType="ContentControl">
   <Grid Margin="0,10">
     <Grid.ColumnDefinitions>
@@ -27,7 +27,7 @@ M512 42.666667A464.64 464.64 0 0 0 42.666667 502.186667 460.373333 460.373333 0 
     <Line X1="0" X2="100" Stroke="{DynamicResource ColorBrush4}" StrokeThickness="1.5" HorizontalAlignment="Center" Stretch="Fill" Grid.Column="2" />
   </Grid>
 </ControlTemplate>
-<Style x:Key="ContentStack" TargetType="StackPanel"><Setter Property="Margin" Value="20,40,20,20"/></Style>
+<Style x:Key="VersionImageBorder" TargetType="Border"><Setter Property="HorizontalAlignment" Value="Center"/><Setter Property="BorderThickness" Value="4"/><Setter Property="VerticalAlignment" Value="Top"/><Setter Property="BorderBrush" Value="{DynamicResource ColorBrush3}"/><Setter Property="CornerRadius" Value="7"/></Style>
 <Style  TargetType="TextBox" x:Key="InlineCode">
     <Setter Property="FontSize" Value="14" />
     <Setter Property="IsReadOnly" Value="True" />
@@ -47,18 +47,18 @@ M512 42.666667A464.64 464.64 0 0 0 42.666667 502.186667 460.373333 460.373333 0 
         </Setter.Value>
     </Setter>
 </Style>
-<Style x:Key="H2" TargetType="Paragraph"><Setter Property="FontSize" Value="22"/><Setter Property="Margin" Value="0,10,0,5"/><Setter Property="FontWeight" Value="Bold"/><Setter Property="Foreground" Value="{DynamicResource ColorBrush3}"/></Style>
+<Style x:Key="ContentStack" TargetType="StackPanel"><Setter Property="Margin" Value="20,40,20,20"/></Style>
 <Style x:Key="Lp" TargetType="Paragraph"><Setter Property="LineHeight" Value="16"/><Setter Property="TextIndent" Value="0"/></Style>
 <Style x:Key="ColoredListItemPara" TargetType="Paragraph"><Setter Property="FontSize" Value="14.5"/><Setter Property="FontWeight" Value="Bold"/><Setter Property="Margin" Value="0,10,0,10"/><Setter Property="LineHeight" Value="10"/><Setter Property="TextIndent" Value="0"/></Style>
 
 </StackPanel.Resources>
-<local:MyCard Title="📰 2.11.1" CanSwap="True" IsSwapped="False" Style="{StaticResource Card}" >
+<local:MyCard Title="📰 2.11.2" CanSwap="True" IsSwapped="False" Style="{StaticResource Card}" >
 <StackPanel Style="{StaticResource ContentStack}">
 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-20,0,0">
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,10">
         <TextBlock Text="PCL 新闻速报" FontSize="32" FontWeight="Bold" Foreground="{DynamicResource ColorBrush3}" HorizontalAlignment="Center" />
         <Border Background="{DynamicResource ColorBrush4}" Opacity="0.8" CornerRadius="3" Padding="6,2" HorizontalAlignment="Center" Margin="0,5,0,0">
-            <TextBlock Text="PCL 现更新至2.11.1" FontSize="16" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" />
+            <TextBlock Text="PCL 现更新至2.11.2" FontSize="16" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" />
         </Border>
     </StackPanel>
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8,6,8,2">
@@ -76,7 +76,7 @@ M512 42.666667A464.64 464.64 0 0 0 42.666667 502.186667 460.373333 460.373333 0 
               Stretch="Uniform"
               Data="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/>
         <Border CornerRadius="4" Background="{DynamicResource ColorBrush6}" Margin="2">
-            <local:MyTextButton Margin="4,1" EventType="打开网页" EventData="https://github.com/Hex-Dragon/PCL2/releases/tag/2.11.1">原更新日志</local:MyTextButton>
+            <local:MyTextButton Margin="4,1" EventType="打开网页" EventData="https://github.com/Hex-Dragon/PCL2/releases/tag/2.11.2">原更新日志</local:MyTextButton>
         </Border>
         <Path Margin="7,0,4,-1" Width="14" Height="14" Fill="{DynamicResource ColorBrush4}"
               Stretch="Uniform"
@@ -100,32 +100,36 @@ M512 42.666667A464.64 464.64 0 0 0 42.666667 502.186667 460.373333 460.373333 0 
 </StackPanel>
 <FlowDocumentScrollViewer >
 <FlowDocument>
-<Paragraph>嘿，联机的优化来了！现在离线登录也能直接加入房间，不需要房主装 Mod 啦！</Paragraph><Paragraph>不过，MC 玩家实在太多了。根据目前的数据，如果要让联机能在正式版 PCL 稳定中继，可能还需要 100 个服务器节点……</Paragraph><Paragraph>所以……我们需要你的帮助！！！</Paragraph><Paragraph>如果你有空闲的服务器，非常欢迎搭建一个共享节点，然后大家就可以使用你的服务器辅助联机了！</Paragraph><Paragraph>搭建共享节点：<TextBox Style="{StaticResource InlineCode}">https://easytier.cn/guide/network/host-public-server.html</TextBox></Paragraph><Paragraph>提交共享节点：<TextBox Style="{StaticResource InlineCode}">https://uptime.easytier.cn/submit</TextBox></Paragraph><Paragraph>如果大家能出一份力，这或许也不是不可能的事……</Paragraph><Paragraph>此外，如果你在 10 月仅赞助了 6.66 档位，也可以收到这个版本的更新！我知道 6.66 档位不包含后续更新，所以仅此一次哦……看看爱发电私信吧 :D</Paragraph><Paragraph>祝大家联机愉快！</Paragraph><Paragraph Style="{StaticResource H2}">联机优化</Paragraph><List>
-<ListItem><Paragraph Style="{StaticResource Lp}">使用离线登录也可以直接加入联机房间了</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">若复制了邀请码，则可以直接快速加入房间</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">会从所有共享节点中自动选择负载最低的进行中继连接（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7383">#7383</local:MyTextButton></Underline>，@zkitefly）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">关闭 PCL 时总是会提示是否退出联机，防止在关闭 PCL 时无意地关闭或退出了房间（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7357">#7357</local:MyTextButton></Underline>，@baguotao233）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">允许自定义要连接的节点</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">若通过中继连接到房主，会显示中继情况与层数</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">在设置添加&quot;贡献节点&quot;和&quot;查看节点状态&quot;按钮，暂时移除老好人模式</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">帮助库更新：添加联机教程（Help<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/436">#436</local:MyTextButton></Underline>，PR @WForst-Breeze）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">修复 RPC 端口被占用导致 CLI 无法获取输出的 Bug（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7351">#7351</local:MyTextButton></Underline>，@tangge233）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">修复 Listener 端口被占用导致启动联机模块失败的 Bug</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">修复了 PCL 的联机无法与其他手动开启的 EasyTier 正常共存的 Bug</Paragraph></ListItem>
+<Paragraph Style="{StaticResource H2}">联机优化来了！</Paragraph><Paragraph>现在离线登录也能直接加入房间，不需要房主装 Mod 啦！</Paragraph><Paragraph>不过，MC 玩家实在太多了。根据目前的数据，如果要让联机能在正式版 PCL 稳定中继，可能还需要 100 个服务器节点……</Paragraph><Paragraph>所以……我们需要你的帮助！！！</Paragraph><Paragraph>如果你有空闲的服务器，非常欢迎搭建一个共享节点，然后大家就可以使用你的服务器辅助联机了！</Paragraph><List>
+<ListItem><Paragraph Style="{StaticResource Lp}">搭建共享节点：<TextBox Style="{StaticResource InlineCode}">https://easytier.cn/guide/network/host-public-server.html</TextBox></Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">提交共享节点：<TextBox Style="{StaticResource InlineCode}">https://uptime.easytier.cn/submit</TextBox></Paragraph></ListItem>
+</List><Paragraph>如果大家能出一份力，这或许也不是不可能的事……</Paragraph><Paragraph>此外，如果你在 10 月仅赞助了 6.66 档位，也可以收到这个版本的更新！我知道 6.66 档位不包含后续更新，所以仅此一次哦……看看爱发电私信吧 :D</Paragraph><Paragraph>祝大家联机愉快！</Paragraph><Paragraph Style="{StaticResource H2}">联机优化</Paragraph><List>
+<ListItem><Paragraph Style="{StaticResource Lp}">若有加入者的网络环境比房主更好，会提示可以让那位加入者担任房主</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">中继节点负载均衡算法优化</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">只选择 MC 中继节点进行连接，避免连接到低质量节点导致卡顿</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">大幅降低节点在线率在负载算法中的权重</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">允许自动选择非 TCP 协议的、带有即将下线标签的、在线状态不是优秀的节点</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">会有 1% 的概率选择 0 负载的节点，而不是固定不选择它们（如果节点存在问题，可能才导致它是 0 负载，所以此前不会选择它们，但这又会导致 PCL 不会连接新增的节点）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">现在会在多个禁止中继的节点中选择一个作为发现节点，以实现负载均衡</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">会检查是否与房主都设置了自定义节点，以防只有一方设置了导致连不上</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">允许设置优先直连或优先低延迟，以降低节点中转负载</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">为侦听的端口号添加了一定的随机性，以降低端口被占用的概率（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7451">#7451</local:MyTextButton></Underline>，@dongtz123）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">若正使用中继节点，会更准确地显示网络情况</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">仅创建房间时不再连接中继节点</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">为节点列表 API 添加了缓存作为回退，以提高可用性</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">联机设置的贡献节点选项会给出更详细的说明</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">若联机模块因为端口被占用而崩溃，会给出详细的解决方案</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">更新联机的内置帮助，现在离线模式直接选择房间就能加入，不应手动输入 IP（Help<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/437">#437</local:MyTextButton></Underline>，PR @kuankqaq）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">修复了以下 4 个联机相关的 Bug</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">新用户首次启动联机可能出错（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7346">#7346</local:MyTextButton></Underline>）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">俄语等环境下无法正常联机（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7435">#7435</local:MyTextButton></Underline>，@Arrogant-BOT）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">创建房间时会显示“正在连接到房主”</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">启动联机时会冗余地检查一次配置</Paragraph></ListItem>
 </List><Paragraph Style="{StaticResource H2}">其他更新内容</Paragraph><List>
-<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">新主页预设：Minecraft 更新摘要（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7380">#7380</local:MyTextButton></Underline>，作者 @pynickle）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">将社区资源的最新版本筛选改为 1.21.10</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">将 EasyTier 添加到特别鸣谢！非常感谢 EasyTier 提供了联机模块！</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">更新 10 月赞助者列表，感谢大家的超级支持！</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">帮助库中添加对 Oculus 的介绍（Help<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/440">#440</local:MyTextButton></Underline>，PR @kuankqaq）</Paragraph></ListItem>
 </List><Paragraph Style="{StaticResource H2}">Bug 修复</Paragraph><List>
-<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">家园披风的翻译缺失（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7353">#7353</local:MyTextButton></Underline>，@YANHAORANG，PR @wyc-26）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">启动第三方客户端时可能出错：分析资源文件索引地址失败（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7369">#7369</local:MyTextButton></Underline>，@LuckyPotion）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">下载失败时，下载管理页面可能不会显示完整的错误信息</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">依然无法处理部分网络请求的超时</Paragraph></ListItem>
-</List><Paragraph Style="{StaticResource H2}">技术性更改</Paragraph><List>
-<ListItem><Paragraph Style="{StaticResource Lp}">新自定义事件类型：加入房间，可用于自动加入指定邀请码的联机房间</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">换用 JSON 输出解析 CLI 结果（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7351">#7351</local:MyTextButton></Underline>，@tangge233）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">ValidateInteger 已允许输入前导 0（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7375">#7375</local:MyTextButton></Underline>，@llzlloll，PR @wyc-26）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">若没有 Path 环境变量则无法启动游戏（<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/7444">#7444</local:MyTextButton></Underline>，@Cshdhshsj）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource ColoredListItemPara}" Foreground="Orange">帮助库中“将 PCL 添加到 Windows 安全中心白名单”的配图有误（Help<Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/PCL/issues/426">#426</local:MyTextButton></Underline>，@lihartx，PR @kuankqaq）</Paragraph></ListItem>
 </List>
 </FlowDocument>
 </FlowDocumentScrollViewer>
