@@ -11,68 +11,95 @@ on:
 jobs:
   sync_to_alist:
     runs-on: ubuntu-latest
-    env:
-      WEBDAV_URL: http://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav
-      WEBDAV_USER: ${{ secrets.ALIST_USERNAME }}
-      WEBDAV_PASS: ${{ secrets.ALIST_PASSWORD }}
-
+    
     steps:
-      # 1. Checkout repository
+      # 1. 设置环境变量
+      - name: Set environment variables
+        id: vars
+        run: |
+          echo "WEBDAV_URL=http://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav" >> $GITHUB_ENV
+          echo "WEBDAV_USER=${{ secrets.ALIST_USERNAME }}" >> $GITHUB_ENV
+          echo "WEBDAV_PASS=${{ secrets.ALIST_PASSWORD }}" >> $GITHUB_ENV
+
+      # 2. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      # 2. Install rclone
+      # 3. Install rclone
       - name: Install rclone
         run: |
           curl https://rclone.org/install.sh | sudo bash
 
-      # 3. Configure rclone using a temporary config file (secure & reliable)
+      # 4. Configure rclone for WebDAV
       - name: Configure rclone for WebDAV
         run: |
           mkdir -p "$HOME/.config/rclone"
           cat > "$HOME/.config/rclone/rclone.conf" <<EOF
 [alist_webdav]
 type = webdav
-url = ${WEBDAV_URL}
-user = ${WEBDAV_USER}
-pass = ${WEBDAV_PASS}
+url = ${{ env.WEBDAV_URL }}
+user = ${{ env.WEBDAV_USER }}
+pass = ${{ env.WEBDAV_PASS }}
 vendor = other
+pacer_min_sleep = 10ms
 EOF
         shell: bash
 
-      # 4. Debug: List local files
+      # 5. Debug: List local files
       - name: List local files
         run: |
+          echo "Current directory:"
           pwd
+          echo "Listing all files:"
+          ls -la
+          echo "Recursive listing:"
           ls -R
 
-      # 5. Test WebDAV connection
+      # 6. Test WebDAV connection
       - name: Test WebDAV connection
         run: |
           echo "Testing WebDAV connection..."
-          rclone lsd alist_webdav: || { echo "Connection failed!"; exit 1; }
+          timeout 30s rclone lsd alist_webdav: --config="$HOME/.config/rclone/rclone.conf" || { 
+            echo "Connection failed!"; 
+            echo "URL being tested: ${{ env.WEBDAV_URL }}";
+            echo "User: ${{ env.WEBDAV_USER }}";
+            exit 1; 
+          }
           echo "WebDAV connection successful."
 
-      # 6. Clear target folder on AList WebDAV (optional)
-      - name: Clear target folder on AList WebDAV
+      # 7. Create target directory if not exists
+      - name: Create target directory
         run: |
-          echo "Deleting existing files in WebDAV root..."
-          rclone delete --verbose --retries 3 alist_webdav:/ || true
-          rclone rmdirs --verbose --retries 3 alist_webdav:/ || true  # safer than rmdir
+          echo "Creating target directory if not exists..."
+          rclone mkdir alist_webdav:/github-sync --config="$HOME/.config/rclone/rclone.conf"
 
-      # 7. Sync all files to AList WebDAV
+      # 8. Sync files to AList WebDAV
       - name: Sync all files to AList
         run: |
           echo "Starting sync to WebDAV..."
-          rclone copy . alist_webdav:/ \
+          rclone sync . alist_webdav:/github-sync \
+            --config="$HOME/.config/rclone/rclone.conf" \
             --checksum \
             --verbose \
             --retries 3 \
             --transfers 4 \
+            --timeout 60s \
             --exclude=".git/**" \
-            --exclude="README.md"  # Optional: exclude files if needed
+            --exclude=".gitignore" \
+            --exclude=".github/**" \
+            --exclude="README.md" \
+            --progress \
+            --update
 
-      # 8. Clean up rclone config for security
+      # 9. Verify sync operation
+      - name: Verify sync
+        run: |
+          echo "Verifying sync operation..."
+          rclone ls alist_webdav:/github-sync --config="$HOME/.config/rclone/rclone.conf"
+
+      # 10. Clean up rclone config for security
       - name: Clean up rclone config
         if: always()
         run: |
