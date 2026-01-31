@@ -12,7 +12,6 @@ jobs:
   sync_to_alist:
     runs-on: ubuntu-latest
     env:
-      # Define variables for WebDAV connection details
       WEBDAV_URL: http://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav
       WEBDAV_USER: ${{ secrets.ALIST_USERNAME }}
       WEBDAV_PASS: ${{ secrets.ALIST_PASSWORD }}
@@ -20,61 +19,62 @@ jobs:
     steps:
       # 1. Checkout repository
       - name: Checkout repository
-        uses: actions/checkout@v4  # Updated to latest version
+        uses: actions/checkout@v4
 
       # 2. Install rclone
       - name: Install rclone
         run: |
           curl https://rclone.org/install.sh | sudo bash
 
-      # 3. Configure rclone using environment variables
+      # 3. Configure rclone using a temporary config file (secure & reliable)
       - name: Configure rclone for WebDAV
         run: |
-          mkdir -p ～/.config/rclone  # Ensure config directory exists
-          cat <<EOF > ～/.config/rclone/rclone.conf
-          [alist_webdav]
-          type = webdav
-          url = ${WEBDAV_URL}
-          user = ${WEBDAV_USER}
-          pass = ${WEBDAV_PASS}
-          # Optional: Add vendor if needed (e.g., nextcloud, sharepoint)
-          # vendor = other
-          EOF
+          mkdir -p "$HOME/.config/rclone"
+          cat > "$HOME/.config/rclone/rclone.conf" <<EOF
+[alist_webdav]
+type = webdav
+url = ${WEBDAV_URL}
+user = ${WEBDAV_USER}
+pass = ${WEBDAV_PASS}
+vendor = other
+EOF
+        shell: bash
 
-      # 4. Debug: Print current working directory
+      # 4. Debug: List local files
       - name: List local files
         run: |
           pwd
-          ls -R  # Recursive listing to see all files
+          ls -R
 
-      # 5. Test WebDAV connection before proceeding
+      # 5. Test WebDAV connection
       - name: Test WebDAV connection
         run: |
           echo "Testing WebDAV connection..."
-          rclone ls alist_webdav: --max-depth=1 || exit 1
+          rclone lsd alist_webdav: || { echo "Connection failed!"; exit 1; }
           echo "WebDAV connection successful."
 
-      # 6. Clear the target folder on Alist WebDAV (optional, remove if not needed)
-      - name: Clear target folder on Alist WebDAV
+      # 6. Clear target folder on AList WebDAV (optional)
+      - name: Clear target folder on AList WebDAV
         run: |
           echo "Deleting existing files in WebDAV root..."
-          rclone delete alist_webdav:/ --verbose --retries 3 || true  # Ignore errors if folder is already empty
-          rclone rmdir alist_webdav:/ --verbose --retries 3 || true  # Remove any remaining empty dirs
+          rclone delete --verbose --retries 3 alist_webdav:/ || true
+          rclone rmdirs --verbose --retries 3 alist_webdav:/ || true  # safer than rmdir
 
-      # 7. Sync all files to Alist WebDAV
+      # 7. Sync all files to AList WebDAV
       - name: Sync all files to AList
         run: |
           echo "Starting sync to WebDAV..."
           rclone copy . alist_webdav:/ \
             --checksum \
-            --size-only \
             --verbose \
             --retries 3 \
-            --transfers 4  # Parallel transfers for better performance
+            --transfers 4 \
+            --exclude=".git/**" \
+            --exclude="README.md"  # Optional: exclude files if needed
 
       # 8. Clean up rclone config for security
       - name: Clean up rclone config
-        if: always()  # Run even if previous steps fail
+        if: always()
         run: |
           echo "Cleaning up rclone config..."
-          rm -rf ～/.config/rclone
+          rm -rf "$HOME/.config/rclone"
