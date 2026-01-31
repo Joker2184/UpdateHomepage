@@ -15,7 +15,6 @@ jobs:
     steps:
       # 1. 设置环境变量
       - name: Set environment variables
-        id: vars
         run: |
           echo "WEBDAV_URL=http://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav" >> $GITHUB_ENV
           echo "WEBDAV_USER=${{ secrets.ALIST_USERNAME }}" >> $GITHUB_ENV
@@ -45,7 +44,6 @@ pass = ${{ env.WEBDAV_PASS }}
 vendor = other
 pacer_min_sleep = 10ms
 EOF
-        shell: bash
 
       # 5. Debug: List local files
       - name: List local files
