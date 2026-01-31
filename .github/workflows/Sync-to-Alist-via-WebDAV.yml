@@ -1,4 +1,4 @@
-name: Sync to AList via WebDAV
+name: Sync to Alist via WebDAV
 
 on:
   push:
@@ -11,95 +11,40 @@ on:
 jobs:
   sync_to_alist:
     runs-on: ubuntu-latest
-    
     steps:
-      # 1. 设置环境变量
-      - name: Set environment variables
-        run: |
-          echo "WEBDAV_URL=http://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav" >> $GITHUB_ENV
-          echo "WEBDAV_USER=${{ secrets.ALIST_USERNAME }}" >> $GITHUB_ENV
-          echo "WEBDAV_PASS=${{ secrets.ALIST_PASSWORD }}" >> $GITHUB_ENV
-
-      # 2. Checkout repository
+      # Checkout repository
       - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v2
 
-      # 3. Install rclone
+      # Install rclone
       - name: Install rclone
         run: |
           curl https://rclone.org/install.sh | sudo bash
 
-      # 4. Configure rclone for WebDAV
+      # Configure rclone for WebDAV
       - name: Configure rclone for WebDAV
         run: |
-          mkdir -p "$HOME/.config/rclone"
-          cat > "$HOME/.config/rclone/rclone.conf" <<EOF
-[alist_webdav]
-type = webdav
-url = ${{ env.WEBDAV_URL }}
-user = ${{ env.WEBDAV_USER }}
-pass = ${{ env.WEBDAV_PASS }}
-vendor = other
-pacer_min_sleep = 10ms
-EOF
+          rclone config create alist_webdav webdav \
+            url http://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav \
+            user ${{ secrets.ALIST_USERNAME }} \
+            pass ${{ secrets.ALIST_PASSWORD }}
 
-      # 5. Debug: List local files
-      - name: List local files
+      # Check current working directory (debugging step)
+      - name: Print current working directory
         run: |
-          echo "Current directory:"
           pwd
-          echo "Listing all files:"
-          ls -la
-          echo "Recursive listing:"
-          ls -R
+          ls -al
 
-      # 6. Test WebDAV connection
-      - name: Test WebDAV connection
+      # Clear the target folder on Alist WebDAV
+      - name: Clear target folder on Alist WebDAV
         run: |
-          echo "Testing WebDAV connection..."
-          timeout 30s rclone lsd alist_webdav: --config="$HOME/.config/rclone/rclone.conf" || { 
-            echo "Connection failed!"; 
-            echo "URL being tested: ${{ env.WEBDAV_URL }}";
-            echo "User: ${{ env.WEBDAV_USER }}";
-            exit 1; 
-          }
-          echo "WebDAV connection successful."
+          rclone delete alist_webdav:/ --rmdirs  # Deletes all files and empty directories from the target folder
 
-      # 7. Create target directory if not exists
-      - name: Create target directory
+      # Sync all files to Alist WebDAV (sync the entire repo)
+      - name: Sync all files to Alist
         run: |
-          echo "Creating target directory if not exists..."
-          rclone mkdir alist_webdav:/github-sync --config="$HOME/.config/rclone/rclone.conf"
+          rclone copy ./ alist_webdav:/ --checksum --size-only --retries 3  # Force update every time
 
-      # 8. Sync files to AList WebDAV
-      - name: Sync all files to AList
-        run: |
-          echo "Starting sync to WebDAV..."
-          rclone sync . alist_webdav:/github-sync \
-            --config="$HOME/.config/rclone/rclone.conf" \
-            --checksum \
-            --verbose \
-            --retries 3 \
-            --transfers 4 \
-            --timeout 60s \
-            --exclude=".git/**" \
-            --exclude=".gitignore" \
-            --exclude=".github/**" \
-            --exclude="README.md" \
-            --progress \
-            --update
-
-      # 9. Verify sync operation
-      - name: Verify sync
-        run: |
-          echo "Verifying sync operation..."
-          rclone ls alist_webdav:/github-sync --config="$HOME/.config/rclone/rclone.conf"
-
-      # 10. Clean up rclone config for security
+      # Optionally, clean up rclone configuration (for security)
       - name: Clean up rclone config
-        if: always()
-        run: |
-          echo "Cleaning up rclone config..."
-          rm -rf "$HOME/.config/rclone"
+        run: rm -rf ~/.config/rclone
