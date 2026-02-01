@@ -13,23 +13,22 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
       with:
-        token: ${{ secrets.PAT_TOKEN }}
         fetch-depth: 0
         
     - name: Install Rclone
       run: |
         curl https://rclone.org/install.sh | sudo bash
         
-    - name: Configure Rclone for WebDAV
+    - name: Configure Rclone for WebDAV with test credentials
       run: |
         mkdir -p ~/.config/rclone
         cat > ~/.config/rclone/rclone.conf << EOF
         [webdav]
         type = webdav
         url = https://pclhomeplazaoss.lingyunawa.top:26993
-        vendor = other
-        user = ${{ secrets.WEBDAV_USERNAME }}
-        pass = ${{ secrets.WEBDAV_PASSWORD }}
+        vendor = nextcloud
+        user = Joker2184
+        pass = Joker2184@Alist
         EOF
         
     - name: Debug - Show Rclone config
@@ -68,11 +67,3 @@ jobs:
         rclone ls webdav:/ --recursive | head -20
         echo "Total size in WebDAV:"
         rclone size webdav:/
-        
-    - name: Commit and push changes back if needed
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add .
-        git commit -m "Auto-sync to WebDAV: $(date)" || exit 0
-        git push origin main || echo "No changes to push or push failed"
