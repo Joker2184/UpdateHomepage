@@ -26,44 +26,46 @@ jobs:
         [webdav]
         type = webdav
         url = https://pclhomeplazaoss.lingyunawa.top:26993
-        vendor = nextcloud
+        vendor = other
         user = Joker2184
         pass = Joker2184@Alist
+        bearer_token = 
+        bearer_token_command = 
         EOF
         
     - name: Debug - Show Rclone config
       run: |
         echo "Config file contents:"
         cat ~/.config/rclone/rclone.conf
-        echo "Testing connection..."
-        rclone ls webdav:/ --max-depth 1
+        echo "Testing connection with explicit authentication..."
+        rclone ls webdav:/ --max-depth 1 --user Joker2184 --pass "Joker2184@Alist"
         
     - name: Remove all existing files from WebDAV
       run: |
         # List all files before deletion
         echo "Current files in WebDAV:"
-        rclone ls webdav:/ --max-depth 1 || echo "No files found or access denied"
+        rclone ls webdav:/ --max-depth 1 --user Joker2184 --pass "Joker2184@Alist" || echo "No files found or access denied"
         
         # Remove all content from WebDAV
         echo "Removing all existing files..."
-        rclone purge webdav:/ || echo "Purge command may have failed, continuing..."
+        rclone purge webdav:/ --user Joker2184 --pass "Joker2184@Alist" || echo "Purge command may have failed, continuing..."
         
         # Verify removal
         echo "After purge - current files in WebDAV:"
-        rclone ls webdav:/ --max-depth 1 || echo "Directory is empty or access denied"
+        rclone ls webdav:/ --max-depth 1 --user Joker2184 --pass "Joker2184@Alist" || echo "Directory is empty or access denied"
         
     - name: Sync current repo to WebDAV
       run: |
         echo "Starting sync from $(pwd) to WebDAV..."
         # Sync all files from current directory to WebDAV root
-        rclone copy . webdav:/ --verbose --no-update-modtime --exclude ".git/**" --exclude ".github/**"
+        rclone copy . webdav:/ --user Joker2184 --pass "Joker2184@Alist" --verbose --no-update-modtime --exclude ".git/**" --exclude ".github/**"
         
         echo "Sync completed. Current files in WebDAV:"
-        rclone ls webdav:/ --max-depth 2
+        rclone ls webdav:/ --max-depth 2 --user Joker2184 --pass "Joker2184@Alist"
         
     - name: Verify sync
       run: |
         echo "Final verification of WebDAV contents:"
-        rclone ls webdav:/ --recursive | head -20
+        rclone ls webdav:/ --recursive --user Joker2184 --pass "Joker2184@Alist" | head -20
         echo "Total size in WebDAV:"
-        rclone size webdav:/
+        rclone size webdav:/ --user Joker2184 --pass "Joker2184@Alist"
