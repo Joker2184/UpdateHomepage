@@ -2,53 +2,54 @@ name: Sync to Alist via WebDAV
 
 on:
   schedule:
-    - cron: "0 1 * * *"  # 每天 UTC 1 点运行
-  workflow_dispatch:
+    - cron: "0 1 * * *"  # 每天 UTC 1 点自动运行
+  workflow_dispatch:     # 允许手动触发
 
 jobs:
   sync_to_alist:
     runs-on: ubuntu-latest
     steps:
-      # 1. 签出仓库
+      # 1. 检出代码
       - name: 🔁 Checkout repository
         uses: actions/checkout@v4
 
-      # 2. 安装 rclone
+      # 2. 安装 rclone（更稳定的方式）
       - name: 🚀 Install rclone
         run: |
-          echo "Installing rclone..."
-          curl -s https://rclone.org/install.sh | sudo bash
+          echo "Installing rclone via apt..."
+          sudo apt update
+          sudo apt install -y rclone
           rclone version
 
-      # 3. 调试：打印脱敏的配置信息（GitHub 会自动 mask secrets）
-      - name: 🔍 Debug: Show WebDAV config (secrets masked by GitHub)
+      # 3. 调试：打印配置信息（secrets 会被 GitHub 自动 mask 为 ***）
+      - name: 🔍 Debug: Show configuration (safe)
         run: |
           echo "WEBDAV_HOST: ${{ secrets.WEBDAV_HOST }}"
           echo "WEBDAV_PORT: ${{ secrets.WEBDAV_PORT }}"
           echo "ALIST_USERNAME: ${{ secrets.ALIST_USERNAME }}"
           echo "WebDAV URL: https://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav"
 
-      # 4. 配置 rclone
+      # 4. 配置 rclone remote
       - name: ⚙️ Configure rclone for AList WebDAV
         run: |
-          echo "Creating rclone config for alist_webdav..."
+          echo "Creating rclone config 'alist_webdav'..."
           rclone config create alist_webdav webdav \
             url "https://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav" \
             vendor "other" \
             user "${{ secrets.ALIST_USERNAME }}" \
             pass "${{ secrets.ALIST_PASSWORD }}"
-          echo "Config created."
+          echo "✅ rclone config created."
 
       # 5. 测试连接：列出远程目录
-      - name: 📋 Test: List remote WebDAV directory
+      - name: 📋 Test: List files on AList WebDAV
         run: |
-          echo "Testing connection to AList WebDAV..."
+          echo "Testing connection by listing remote directory..."
           rclone lsd alist_webdav: --verbose
 
-      # 6. 同步文件
+      # 6. 同步本地文件到 AList
       - name: 📤 Sync files to AList WebDAV
         run: |
-          echo "Starting sync from ./ to alist_webdav:/ ..."
+          echo "Starting sync from current directory to alist_webdav:/ ..."
           rclone sync ./ alist_webdav:/ \
             --checksum \
             --ignore-times \
@@ -56,9 +57,9 @@ jobs:
             --verbose \
             --progress
 
-      # 7. 清理
+      # 7. 清理配置（防止敏感信息残留）
       - name: 🧹 Clean up rclone config
         if: always()
         run: |
-          echo "Cleaning up rclone config..."
+          echo "Cleaning up rclone configuration..."
           rm -rf ～/.config/rclone
