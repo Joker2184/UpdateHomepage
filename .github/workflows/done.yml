@@ -25,9 +25,9 @@ jobs:
       - name: Configure rclone for WebDAV
         run: |
           rclone config create alist_webdav webdav \
-            url http://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav \
-            user ${{ secrets.ALIST_USERNAME }} \
-            pass ${{ secrets.ALIST_PASSWORD }}
+            url http://pclhomeplazaoss.lingyunawa.top:26993/dav \
+            user Joker2184 \
+            pass Joker2184@Alist
 
       # Check current working directory (debugging step)
       - name: Print current working directory
