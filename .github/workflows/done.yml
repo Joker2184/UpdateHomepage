@@ -29,7 +29,7 @@ jobs:
       # 替换文件到目标目录
       - name: 📤 Copy build files to Alist WebDAV
         run: |
-          rclone sync ./output/ alist_webdav:/ --checksum --ignore-times --retries 3
+          rclone sync ./ alist_webdav:/ --checksum --ignore-times --retries 3
 
       # 清理 rclone 配置
       - name: 🧹 Clean up rclone config
