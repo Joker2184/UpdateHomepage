@@ -16,11 +16,20 @@ jobs:
         run: sudo apt install -y rclone
 
       - name: ⚙️ Configure rclone
-        run: rclone config create alist_webdav webdav url "https://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav" vendor other user "${{ secrets.ALIST_USERNAME }}" pass "${{ secrets.ALIST_PASSWORD }}"
+        env:
+          WEBDAV_URL: "https://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav"
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "[alist_webdav]" > ~/.config/rclone/rclone.conf
+          echo "type = webdav" >> ~/.config/rclone/rclone.conf
+          echo "url = $WEBDAV_URL" >> ~/.config/rclone/rclone.conf
+          echo "vendor = other" >> ~/.config/rclone/rclone.conf
+          echo "user = ${{ secrets.ALIST_USERNAME }}" >> ~/.config/rclone/rclone.conf
+          echo "pass = ${{ secrets.ALIST_PASSWORD }}" >> ~/.config/rclone/rclone.conf
 
       - name: 📤 Sync to AList
         run: rclone sync ./ alist_webdav:/ --checksum --ignore-times --retries 3 -v
 
       - name: 🧹 Clean up
         if: always()
-        run: rm -rf ～/.config/rclone
+        run: rm -rf ~/.config/rclone
