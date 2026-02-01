@@ -15,17 +15,12 @@ jobs:
       - name: 🚀 Install rclone
         run: sudo apt install -y rclone
 
-      - name: ⚙️ Configure rclone for AList WebDAV
-        run: |
-          rclone config create alist_webdav webdav \
-            url "https://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav" \
-            vendor "other" \
-            user "${{ secrets.ALIST_USERNAME }}" \
-            pass "${{ secrets.ALIST_PASSWORD }}"
+      - name: ⚙️ Configure rclone
+        run: rclone config create alist_webdav webdav url "https://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav" vendor other user "${{ secrets.ALIST_USERNAME }}" pass "${{ secrets.ALIST_PASSWORD }}"
 
-      - name: 📤 Sync files to AList WebDAV
+      - name: 📤 Sync to AList
         run: rclone sync ./ alist_webdav:/ --checksum --ignore-times --retries 3 -v
 
-      - name: 🧹 Clean up rclone config
+      - name: 🧹 Clean up
         if: always()
         run: rm -rf ～/.config/rclone
