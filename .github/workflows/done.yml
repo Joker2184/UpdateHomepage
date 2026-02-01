@@ -2,36 +2,63 @@ name: Sync to Alist via WebDAV
 
 on:
   schedule:
-    - cron: 0 1 * * *
+    - cron: "0 1 * * *"  # 每天 UTC 1 点运行
   workflow_dispatch:
 
 jobs:
   sync_to_alist:
     runs-on: ubuntu-latest
     steps:
-      # 签出仓库
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      # 1. 签出仓库
+      - name: 🔁 Checkout repository
+        uses: actions/checkout@v4
 
-      # 安装 rclone
+      # 2. 安装 rclone
       - name: 🚀 Install rclone
         run: |
-          curl https://rclone.org/install.sh | sudo bash
+          echo "Installing rclone..."
+          curl -s https://rclone.org/install.sh | sudo bash
+          rclone version
 
-      # 配置 rclone for WebDAV (Alist)
-      - name: ⚙️ Configure rclone for WebDAV (Alist)
+      # 3. 调试：打印脱敏的配置信息（GitHub 会自动 mask secrets）
+      - name: 🔍 Debug: Show WebDAV config (secrets masked by GitHub)
         run: |
+          echo "WEBDAV_HOST: ${{ secrets.WEBDAV_HOST }}"
+          echo "WEBDAV_PORT: ${{ secrets.WEBDAV_PORT }}"
+          echo "ALIST_USERNAME: ${{ secrets.ALIST_USERNAME }}"
+          echo "WebDAV URL: https://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav"
+
+      # 4. 配置 rclone
+      - name: ⚙️ Configure rclone for AList WebDAV
+        run: |
+          echo "Creating rclone config for alist_webdav..."
           rclone config create alist_webdav webdav \
-            url https://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav \
-            user ${{ secrets.ALIST_USERNAME }} \
-            pass ${{ secrets.ALIST_PASSWORD }}
+            url "https://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav" \
+            vendor "other" \
+            user "${{ secrets.ALIST_USERNAME }}" \
+            pass "${{ secrets.ALIST_PASSWORD }}"
+          echo "Config created."
 
-      # 替换文件到目标目录
-      - name: 📤 Copy build files to Alist WebDAV
+      # 5. 测试连接：列出远程目录
+      - name: 📋 Test: List remote WebDAV directory
         run: |
-          rclone sync ./ alist_webdav:/ --checksum --ignore-times --retries 3
+          echo "Testing connection to AList WebDAV..."
+          rclone lsd alist_webdav: --verbose
 
-      # 清理 rclone 配置
+      # 6. 同步文件
+      - name: 📤 Sync files to AList WebDAV
+        run: |
+          echo "Starting sync from ./ to alist_webdav:/ ..."
+          rclone sync ./ alist_webdav:/ \
+            --checksum \
+            --ignore-times \
+            --retries 3 \
+            --verbose \
+            --progress
+
+      # 7. 清理
       - name: 🧹 Clean up rclone config
         if: always()
-        run: rm -rf ~/.config/rclone
+        run: |
+          echo "Cleaning up rclone config..."
+          rm -rf ～/.config/rclone
