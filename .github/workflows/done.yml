@@ -1,4 +1,4 @@
-name: Sync to Alist via Hybrid Protocol
+name: Sync to Alist via WebDAV
 
 on:
   push:
@@ -12,62 +12,39 @@ jobs:
   sync_to_alist:
     runs-on: ubuntu-latest
     steps:
-      # 签出仓库
+      # Checkout repository
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
-      # 安装 rclone
-      - name: 🚀 Install rclone
+      # Install rclone
+      - name: Install rclone
         run: |
           curl https://rclone.org/install.sh | sudo bash
 
-      # 配置 FTP 用于文件删除（绕过 WebDAV 405 错误）
-      - name: ⚙️ Configure FTP for file deletion
-        run: |
-          rclone config create alist_ftp ftp \
-            host pclhomeplazaoss.lingyunawa.top \
-            port 26993 \
-            user Joker2184 \
-            pass Joker2184@Alist \
-            passive true \
-            tls false
-
-      # 配置 WebDAV 用于文件传输
-      - name: ⚙️ Configure WebDAV for file upload
+      # Configure rclone for WebDAV
+      - name: Configure rclone for WebDAV
         run: |
           rclone config create alist_webdav webdav \
-            url https://pclhomeplazaoss.lingyunawa.top:26993 \
-            vendor other \
-            user Joker2184 \
-            pass Joker2184@Alist
+            url http://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav \
+            user ${{ secrets.ALIST_USERNAME }} \
+            pass ${{ secrets.ALIST_PASSWORD }}
 
-      # 1. 使用 FTP 删除所有文件（避免 WebDAV 405 错误）
-      - name: 🗑️ Delete all files via FTP
+      # Check current working directory (debugging step)
+      - name: Print current working directory
         run: |
-          echo "Deleting all files using FTP (avoiding WebDAV 405 errors)..."
-          rclone delete alist_ftp:/ --retries 3 || true
-          echo "FTP deletion completed (ignoring directory removal errors)"
+          pwd
+          ls -al
 
-      # 2. 使用 WebDAV 上传所有文件（安全传输）
-      - name: 📤 Upload files via WebDAV
+      # Clear the target folder on Alist WebDAV
+      - name: Clear target folder on Alist WebDAV
         run: |
-          echo "Uploading all repository files via WebDAV..."
-          rclone copy ./ alist_webdav:/ \
-            --checksum \
-            --size-only \
-            --retries 3 \
-            --exclude ".git/**" \
-            --exclude ".github/**" \
-            --verbose
+          rclone delete alist_webdav:/ --rmdirs  # Deletes all files and empty directories from the target folder
 
-      # 3. 验证同步结果
-      - name: ✅ Verify sync
+      # Sync all files to Alist WebDAV (sync the entire repo)
+      - name: Sync all files to Alist
         run: |
-          echo "Sync completed. Verifying contents:"
-          rclone ls alist_webdav:/ --max-depth 2 | head -15
-          rclone size alist_webdav:/
+          rclone copy ./ alist_webdav:/ --checksum --size-only --retries 3  # Force update every time
 
-      # 清理 rclone 配置
-      - name: 🧹 Clean up rclone config
-        if: always()
-        run: rm -rf ～/.config/rclone
+      # Optionally, clean up rclone configuration (for security)
+      - name: Clean up rclone config
+        run: rm -rf ~/.config/rclone
