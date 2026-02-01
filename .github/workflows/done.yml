@@ -1,71 +1,59 @@
-name: Sync Files to WebDAV with Rclone
+name: Sync to Alist via WebDAV
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-  sync-to-webdav:
+  sync_to_alist:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-        
-    - name: Install Rclone
-      run: |
-        curl https://rclone.org/install.sh | sudo bash
-        
-    - name: Configure Rclone for WebDAV with test credentials
-      run: |
-        mkdir -p ~/.config/rclone
-        cat > ~/.config/rclone/rclone.conf << EOF
-        [webdav]
-        type = webdav
-        url = https://pclhomeplazaoss.lingyunawa.top:26993
-        vendor = other
-        user = Joker2184
-        pass = Joker2184@Alist
-        bearer_token = 
-        bearer_token_command = 
-        EOF
-        
-    - name: Debug - Show Rclone config
-      run: |
-        echo "Config file contents:"
-        cat ~/.config/rclone/rclone.conf
-        echo "Testing connection with explicit authentication..."
-        rclone ls webdav:/ --max-depth 1 --user Joker2184 --pass "Joker2184@Alist"
-        
-    - name: Remove all existing files from WebDAV
-      run: |
-        # List all files before deletion
-        echo "Current files in WebDAV:"
-        rclone ls webdav:/ --max-depth 1 --user Joker2184 --pass "Joker2184@Alist" || echo "No files found or access denied"
-        
-        # Remove all content from WebDAV
-        echo "Removing all existing files..."
-        rclone purge webdav:/ --user Joker2184 --pass "Joker2184@Alist" || echo "Purge command may have failed, continuing..."
-        
-        # Verify removal
-        echo "After purge - current files in WebDAV:"
-        rclone ls webdav:/ --max-depth 1 --user Joker2184 --pass "Joker2184@Alist" || echo "Directory is empty or access denied"
-        
-    - name: Sync current repo to WebDAV
-      run: |
-        echo "Starting sync from $(pwd) to WebDAV..."
-        # Sync all files from current directory to WebDAV root
-        rclone copy . webdav:/ --user Joker2184 --pass "Joker2184@Alist" --verbose --no-update-modtime --exclude ".git/**" --exclude ".github/**"
-        
-        echo "Sync completed. Current files in WebDAV:"
-        rclone ls webdav:/ --max-depth 2 --user Joker2184 --pass "Joker2184@Alist"
-        
-    - name: Verify sync
-      run: |
-        echo "Final verification of WebDAV contents:"
-        rclone ls webdav:/ --recursive --user Joker2184 --pass "Joker2184@Alist" | head -20
-        echo "Total size in WebDAV:"
-        rclone size webdav:/ --user Joker2184 --pass "Joker2184@Alist"
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Install rclone
+      - name: Install rclone
+        run: |
+          curl https://rclone.org/install.sh | sudo bash
+
+      # Configure rclone for WebDAV with test credentials
+      - name: Configure rclone for WebDAV
+        run: |
+          rclone config create alist_webdav webdav \
+            url https://pclhomeplazaoss.lingyunawa.top:26993 \
+            vendor other \
+            user Joker2184 \
+            pass Joker2184@Alist
+
+      # Check current working directory (debugging step)
+      - name: Print current working directory
+        run: |
+          pwd
+          ls -al
+
+      # Clear the target folder on Alist WebDAV
+      - name: Clear target folder on Alist WebDAV
+        run: |
+          rclone ls alist_webdav:/
+          rclone delete alist_webdav:/ --rmdirs  # Deletes all files and empty directories from the target folder
+
+      # Sync all files to Alist WebDAV (sync the entire repo)
+      - name: Sync all files to Alist
+        run: |
+          rclone copy ./ alist_webdav:/ --checksum --size-only --retries 3  # Force update every time
+
+      # List files after sync (verification)
+      - name: Verify sync
+        run: |
+          rclone ls alist_webdav:/ --recursive | head -20
+          rclone size alist_webdav:/
+
+      # Optionally, clean up rclone configuration (for security)
+      - name: Clean up rclone config
+        run: rm -rf ~/.config/rclone
