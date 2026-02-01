@@ -16,16 +16,29 @@ jobs:
         run: sudo apt install -y rclone
 
       - name: ⚙️ Configure rclone
-        env:
-          WEBDAV_URL: "https://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav"
         run: |
-          mkdir -p ~/.config/rclone
-          echo "[alist_webdav]" > ~/.config/rclone/rclone.conf
-          echo "type = webdav" >> ~/.config/rclone/rclone.conf
-          echo "url = $WEBDAV_URL" >> ~/.config/rclone/rclone.conf
-          echo "vendor = other" >> ~/.config/rclone/rclone.conf
-          echo "user = ${{ secrets.ALIST_USERNAME }}" >> ~/.config/rclone/rclone.conf
-          echo "pass = ${{ secrets.ALIST_PASSWORD }}" >> ~/.config/rclone/rclone.conf
+          # 使用非交互模式配置
+          {
+            echo "[alist_webdav]"
+            echo "type = webdav"
+            echo "url = https://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav"
+            echo "vendor = other"
+            echo "user = ${{ secrets.ALIST_USERNAME }}"
+            echo "pass = ${{ secrets.ALIST_PASSWORD }}"
+          } | rclone config create alist_webdav webdav - || true
+          
+          # 如果上面失败，手动创建配置文件
+          if [ ! -f ~/.config/rclone/rclone.conf ]; then
+            mkdir -p ~/.config/rclone
+            cat > ~/.config/rclone/rclone.conf << EOF
+[alist_webdav]
+type = webdav
+url = https://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav
+vendor = other
+user = ${{ secrets.ALIST_USERNAME }}
+pass = ${{ secrets.ALIST_PASSWORD }}
+EOF
+          fi
 
       - name: 📤 Sync to AList
         run: rclone sync ./ alist_webdav:/ --checksum --ignore-times --retries 3 -v
