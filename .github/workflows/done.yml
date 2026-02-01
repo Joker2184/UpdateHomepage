@@ -1,0 +1,78 @@
+name: Sync Files to WebDAV with Rclone
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  sync-to-webdav:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.PAT_TOKEN }}
+        fetch-depth: 0
+        
+    - name: Install Rclone
+      run: |
+        curl https://rclone.org/install.sh | sudo bash
+        
+    - name: Configure Rclone for WebDAV
+      run: |
+        mkdir -p ~/.config/rclone
+        cat > ~/.config/rclone/rclone.conf << EOF
+        [webdav]
+        type = webdav
+        url = https://pclhomeplazaoss.lingyunawa.top:26993
+        vendor = other
+        user = ${{ secrets.WEBDAV_USERNAME }}
+        pass = ${{ secrets.WEBDAV_PASSWORD }}
+        EOF
+        
+    - name: Debug - Show Rclone config
+      run: |
+        echo "Config file contents:"
+        cat ~/.config/rclone/rclone.conf
+        echo "Testing connection..."
+        rclone ls webdav:/ --max-depth 1
+        
+    - name: Remove all existing files from WebDAV
+      run: |
+        # List all files before deletion
+        echo "Current files in WebDAV:"
+        rclone ls webdav:/ --max-depth 1 || echo "No files found or access denied"
+        
+        # Remove all content from WebDAV
+        echo "Removing all existing files..."
+        rclone purge webdav:/ || echo "Purge command may have failed, continuing..."
+        
+        # Verify removal
+        echo "After purge - current files in WebDAV:"
+        rclone ls webdav:/ --max-depth 1 || echo "Directory is empty or access denied"
+        
+    - name: Sync current repo to WebDAV
+      run: |
+        echo "Starting sync from $(pwd) to WebDAV..."
+        # Sync all files from current directory to WebDAV root
+        rclone copy . webdav:/ --verbose --no-update-modtime --exclude ".git/**" --exclude ".github/**"
+        
+        echo "Sync completed. Current files in WebDAV:"
+        rclone ls webdav:/ --max-depth 2
+        
+    - name: Verify sync
+      run: |
+        echo "Final verification of WebDAV contents:"
+        rclone ls webdav:/ --recursive | head -20
+        echo "Total size in WebDAV:"
+        rclone size webdav:/
+        
+    - name: Commit and push changes back if needed
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add .
+        git commit -m "Auto-sync to WebDAV: $(date)" || exit 0
+        git push origin main || echo "No changes to push or push failed"
