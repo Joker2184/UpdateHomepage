@@ -1,7 +1,6 @@
 name: Sync to Alist via WebDAV
 
 on:
-  # 这里请自行配置
   push:
     branches:
       - main
@@ -15,30 +14,80 @@ jobs:
     steps:
       # 签出仓库
       - name: Checkout repository
-        uses: actions/checkout@v2
-
-      # 如果有构建器，在这里处理好
+        uses: actions/checkout@v3
 
       # 安装 rclone
       - name: 🚀 Install rclone
         run: |
           curl https://rclone.org/install.sh | sudo bash
 
-      # 配置 rclone for WebDAV (Alist)
+      # 配置 rclone for WebDAV (Alist) with test credentials
       - name: ⚙️ Configure rclone for WebDAV (Alist)
         run: |
           rclone config create alist_webdav webdav \
-            url https://${{ secrets.WEBDAV_HOST }}:${{ secrets.WEBDAV_PORT }}/dav \
-            user ${{ secrets.ALIST_USERNAME }} \
-            pass ${{ secrets.ALIST_PASSWORD }}
+            url https://pclhomeplazaoss.lingyunawa.top:26993 \
+            vendor other \
+            user Joker2184 \
+            pass Joker2184@Alist
 
-      # 替换文件到目标目录
-      # 如果还有别的文件，自己配置
-      # rclone copy [文件名带后缀，相对于仓库根目录] alist_webdav:/ --checksum --size-only --retries 3
-      - name: 📤 Copy build files to Alist WebDAV
+      # 测试连接
+      - name: 🔍 Test WebDAV connection
         run: |
-          rclone copy Custom.xaml alist_webdav:/ --checksum --size-only --retries 3
-          rclone copy Custom.xaml.ini alist_webdav:/ --checksum --size-only --retries 3
+          echo "Testing connection to WebDAV server..."
+          rclone ls alist_webdav:/ --max-depth 1
+
+      # 检查当前工作目录
+      - name: 📂 Print current working directory
+        run: |
+          pwd
+          ls -al
+
+      # 列出删除前的文件
+      - name: 📋 List files before deletion
+        run: |
+          echo "Files before deletion:"
+          rclone ls alist_webdav:/ --max-depth 3 || echo "No files found or access denied"
+
+      # 删除目标目录中的所有文件
+      - name: 🗑️ Delete all files in target directory
+        run: |
+          echo "Deleting all files in WebDAV directory..."
+          # 首先列出所有项目
+          ITEMS=$(rclone lsf alist_webdav:/ --recursive | sort -r)
+          
+          # 删除每个项目
+          for item in $ITEMS; do
+            echo "Deleting $item"
+            rclone deletefile "alist_webdav:/$item" --retries 3 || echo "Failed to delete $item, continuing..."
+          done
+          
+          # 尝试删除空目录
+          rclone rmdir alist_webdav:/ --retries 3 || echo "Root directory may not be removable"
+
+      # 等待片刻以确保删除完成
+      - name: ⏳ Wait for deletion processing
+        run: sleep 5
+
+      # 验证删除结果
+      - name: ✅ Verify deletion
+        run: |
+          echo "Verifying deletion:"
+          rclone ls alist_webdav:/ --max-depth 1 || echo "Directory is now empty"
+
+      # 复制仓库所有文件到WebDAV
+      - name: 📤 Copy all repository files to Alist WebDAV
+        run: |
+          echo "Copying all repository files to WebDAV..."
+          # 复制所有非隐藏文件和目录（排除 .git）
+          rclone copy ./ alist_webdav:/ --checksum --size-only --retries 3 --verbose --exclude ".git/**" --exclude ".github/**"
+
+      # 验证同步结果
+      - name: 🧪 Verify sync result
+        run: |
+          echo "Files after sync:"
+          rclone ls alist_webdav:/ --recursive | head -20
+          echo "Total size:"
+          rclone size alist_webdav:/
 
       # 清理 rclone 配置
       - name: 🧹 Clean up rclone config
