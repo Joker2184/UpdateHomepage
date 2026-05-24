@@ -11,7 +11,9 @@ xmlns:local="clr-namespace:PCL;assembly=Plain Craft Launcher 2">
 <Style TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/><Setter Property="HorizontalAlignment" Value="Left"/><Setter Property="FontSize" Value="14"/><Setter Property="Foreground" Value="{DynamicResource ColorBrush1}"/></Style>
 <Style TargetType="FlowDocument"><Setter Property="FontFamily" Value="Microsoft YaHei UI"/><Setter Property="FontSize" Value="14"/><Setter Property="TextAlignment" Value="Left"/><Setter Property="Foreground" Value="{DynamicResource ColorBrush1}"/></Style>
 <Style TargetType="FlowDocumentScrollViewer"><Setter Property="IsSelectionEnabled" Value="False"/><Setter Property="VerticalScrollBarVisibility" Value="Hidden"/><Setter Property="Margin" Value="0"/></Style>
-<Style x:Key="H2" TargetType="Paragraph"><Setter Property="FontSize" Value="22"/><Setter Property="Margin" Value="0,10,0,5"/><Setter Property="FontWeight" Value="Bold"/><Setter Property="Foreground" Value="{DynamicResource ColorBrush3}"/></Style>
+<sys:String   x:Key="GithubIcon">
+M512 42.666667A464.64 464.64 0 0 0 42.666667 502.186667 460.373333 460.373333 0 0 0 363.52 938.666667c23.466667 4.266667 32-9.813333 32-22.186667v-78.08c-130.56 27.733333-158.293333-61.44-158.293333-61.44a122.026667 122.026667 0 0 0-52.053334-67.413333c-42.666667-28.16 3.413333-27.733333 3.413334-27.733334a98.56 98.56 0 0 1 71.68 47.36 101.12 101.12 0 0 0 136.533333 37.973334 99.413333 99.413333 0 0 1 29.866667-61.44c-104.106667-11.52-213.333333-50.773333-213.333334-226.986667a177.066667 177.066667 0 0 1 47.36-124.16 161.28 161.28 0 0 1 4.693334-121.173333s39.68-12.373333 128 46.933333a455.68 455.68 0 0 1 234.666666 0c89.6-59.306667 128-46.933333 128-46.933333a161.28 161.28 0 0 1 4.693334 121.173333A177.066667 177.066667 0 0 1 810.666667 477.866667c0 176.64-110.08 215.466667-213.333334 226.986666a106.666667 106.666667 0 0 1 32 85.333334v125.866666c0 14.933333 8.533333 26.88 32 22.186667A460.8 460.8 0 0 0 981.333333 502.186667 464.64 464.64 0 0 0 512 42.666667</sys:String>
+<Style x:Key="ContentStack" TargetType="StackPanel"><Setter Property="Margin" Value="20,40,20,20"/></Style>
 <ControlTemplate  x:Key="Separator" TargetType="ContentControl">
   <Grid Margin="0,10">
     <Grid.ColumnDefinitions>
@@ -24,40 +26,20 @@ xmlns:local="clr-namespace:PCL;assembly=Plain Craft Launcher 2">
     <Line X1="0" X2="100" Stroke="{DynamicResource ColorBrush4}" StrokeThickness="1.5" HorizontalAlignment="Center" Stretch="Fill" Grid.Column="2" />
   </Grid>
 </ControlTemplate>
-<sys:String   x:Key="GithubIcon">
-M512 42.666667A464.64 464.64 0 0 0 42.666667 502.186667 460.373333 460.373333 0 0 0 363.52 938.666667c23.466667 4.266667 32-9.813333 32-22.186667v-78.08c-130.56 27.733333-158.293333-61.44-158.293333-61.44a122.026667 122.026667 0 0 0-52.053334-67.413333c-42.666667-28.16 3.413333-27.733333 3.413334-27.733334a98.56 98.56 0 0 1 71.68 47.36 101.12 101.12 0 0 0 136.533333 37.973334 99.413333 99.413333 0 0 1 29.866667-61.44c-104.106667-11.52-213.333333-50.773333-213.333334-226.986667a177.066667 177.066667 0 0 1 47.36-124.16 161.28 161.28 0 0 1 4.693334-121.173333s39.68-12.373333 128 46.933333a455.68 455.68 0 0 1 234.666666 0c89.6-59.306667 128-46.933333 128-46.933333a161.28 161.28 0 0 1 4.693334 121.173333A177.066667 177.066667 0 0 1 810.666667 477.866667c0 176.64-110.08 215.466667-213.333334 226.986666a106.666667 106.666667 0 0 1 32 85.333334v125.866666c0 14.933333 8.533333 26.88 32 22.186667A460.8 460.8 0 0 0 981.333333 502.186667 464.64 464.64 0 0 0 512 42.666667</sys:String>
-<Style  TargetType="TextBox" x:Key="InlineCode">
-    <Setter Property="FontSize" Value="14" />
-    <Setter Property="IsReadOnly" Value="True" />
-    <Setter Property="Margin" Value="2,0,2,-4" />
-    <Setter Property="FontFamily" Value="Consolas" />
-    <Setter Property="Foreground" Value="{DynamicResource ColorBrush1}" />
-    <Setter Property="Height" Value="18" />
-    <Setter Property="Template">
-        <Setter.Value>
-            <ControlTemplate TargetType="TextBox">
-                <Border Background="{DynamicResource ColorBrush6}" Opacity="0.9" BorderBrush="{DynamicResource ColorBrush4}" BorderThickness="0" CornerRadius="5" Padding="4,0.2"> 
-                    <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
-                </Border>
-                <ControlTemplate.Triggers>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
-        </Setter.Value>
-    </Setter>
-</Style>
-<Style x:Key="VersionImageBorder" TargetType="Border"><Setter Property="HorizontalAlignment" Value="Center"/><Setter Property="BorderThickness" Value="4"/><Setter Property="VerticalAlignment" Value="Top"/><Setter Property="BorderBrush" Value="{DynamicResource ColorBrush3}"/><Setter Property="CornerRadius" Value="7"/></Style>
-<Style x:Key="ContentStack" TargetType="StackPanel"><Setter Property="Margin" Value="20,40,20,20"/></Style>
-<Style x:Key="Card" TargetType="local:MyCard"><Setter Property="Margin" Value="0,5"/></Style>
 <Style x:Key="Lp" TargetType="Paragraph"><Setter Property="LineHeight" Value="16"/><Setter Property="TextIndent" Value="0"/></Style>
+<Style x:Key="VersionImageBorder" TargetType="Border"><Setter Property="HorizontalAlignment" Value="Center"/><Setter Property="BorderThickness" Value="4"/><Setter Property="VerticalAlignment" Value="Top"/><Setter Property="BorderBrush" Value="{DynamicResource ColorBrush3}"/><Setter Property="CornerRadius" Value="7"/></Style>
+<Style x:Key="H2" TargetType="Paragraph"><Setter Property="FontSize" Value="22"/><Setter Property="Margin" Value="0,10,0,5"/><Setter Property="FontWeight" Value="Bold"/><Setter Property="Foreground" Value="{DynamicResource ColorBrush3}"/></Style>
+<Style x:Key="Card" TargetType="local:MyCard"><Setter Property="Margin" Value="0,5"/></Style>
+<Style x:Key="Hr" TargetType="Section"><Setter Property="Margin" Value="0,4,0,0"/><Setter Property="BorderThickness" Value="0,1.5,0,0"/><Setter Property="BorderBrush" Value="{StaticResource ColorBrush4}"/><Setter Property="FontSize" Value="4"/></Style>
 
 </StackPanel.Resources>
-<local:MyCard Title="📰 2.12.8.1" CanSwap="True" IsSwapped="False" Style="{StaticResource Card}" >
+<local:MyCard Title="📰 2.12.8.2" CanSwap="True" IsSwapped="False" Style="{StaticResource Card}" >
 <StackPanel Style="{StaticResource ContentStack}">
 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-20,0,0">
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,10">
         <TextBlock Text="PCL 新闻速报" FontSize="32" FontWeight="Bold" Foreground="{DynamicResource ColorBrush3}" HorizontalAlignment="Center" />
         <Border Background="{DynamicResource ColorBrush4}" Opacity="0.8" CornerRadius="3" Padding="6,2" HorizontalAlignment="Center" Margin="0,5,0,0">
-            <TextBlock Text="PCL 现更新至2.12.8.1" FontSize="16" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" />
+            <TextBlock Text="PCL 现更新至2.12.8.2" FontSize="16" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" />
         </Border>
     </StackPanel>
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8,6,8,2">
@@ -70,12 +52,12 @@ M512 42.666667A464.64 464.64 0 0 0 42.666667 502.186667 460.373333 460.373333 0 
         <Path Margin="4,0" Width="14" Height="14" Fill="{DynamicResource ColorBrush4}"
               Stretch="Uniform"
               Data="M716.4 110.137c0-18.753-14.72-33.473-33.472-33.473-18.753 0-33.473 14.72-33.473 33.473v33.473h66.993v-33.473zm-334.87 0c0-18.753-14.72-33.473-33.473-33.473s-33.52 14.72-33.52 33.473v33.473h66.993v-33.473zm468.81 33.52H716.4v100.465c0 18.753-14.72 33.473-33.472 33.473a33.145 33.145 0 01-33.473-33.473V143.657H381.53v100.465c0 18.753-14.72 33.473-33.473 33.473a33.145 33.145 0 01-33.473-33.473V143.657H180.6A134.314 134.314 0 0046.66 277.595v535.756A134.314 134.314 0 00180.6 947.289h669.74a134.36 134.36 0 00133.94-133.938V277.595a134.314 134.314 0 00-133.94-133.938zm33.473 267.877H147.126a33.145 33.145 0 01-33.473-33.473c0-18.752 14.72-33.473 33.473-33.473h736.687c18.752 0 33.472 14.72 33.472 33.473a33.145 33.145 0 01-33.472 33.473z"/>
-        <TextBlock FontSize="13" Foreground="{DynamicResource ColorBrush3}" Margin="0,4,3,0">2026-05-20 17:26:44+00:00</TextBlock>
+        <TextBlock FontSize="13" Foreground="{DynamicResource ColorBrush3}" Margin="0,4,3,0">2026-05-24 11:22:08+00:00</TextBlock>
         <Path Margin="7,0,4,0" Width="14" Height="14" Fill="{DynamicResource ColorBrush4}"
               Stretch="Uniform"
               Data="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/>
         <Border CornerRadius="4" Background="{DynamicResource ColorBrush6}" Margin="2">
-            <local:MyTextButton Margin="4,1" EventType="打开网页" EventData="https://github.com/Hex-Dragon/PCL2/releases/tag/2.12.8.1">原更新日志</local:MyTextButton>
+            <local:MyTextButton Margin="4,1" EventType="打开网页" EventData="https://github.com/Hex-Dragon/PCL2/releases/tag/2.12.8.2">原更新日志</local:MyTextButton>
         </Border>
         <Path Margin="7,0,4,-1" Width="14" Height="14" Fill="{DynamicResource ColorBrush4}"
               Stretch="Uniform"
@@ -99,26 +81,12 @@ M512 42.666667A464.64 464.64 0 0 0 42.666667 502.186667 460.373333 460.373333 0 
 </StackPanel>
 <FlowDocumentScrollViewer >
 <FlowDocument>
-<Paragraph>一个小更新，修复一些 2.12.8.0 的问题，看看这次能不能上正式版……</Paragraph><Paragraph Style="{StaticResource H2}">优化</Paragraph><List>
-<ListItem><Paragraph Style="{StaticResource Lp}">当被 Xbox 封禁账号时，会给出明确的提示（#8655，@LinQingYuu）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">在搜索社区内容前，会将繁体中文转换为简体再进行匹配（#8657，@GotohHitori52）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">添加“刷新披风列表”选项</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">若删除到回收站失败，会回退到永久删除</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">除特定几个“可点击”表述不明显的控件外，其余控件改回普通鼠标样式，而非手形</Paragraph></ListItem>
+<Paragraph>修几个小 Bug，主要是 Windows 7 没法联网……</Paragraph><Section Style="{StaticResource Hr}"/><Paragraph Style="{StaticResource H2}">优化</Paragraph><List>
+<ListItem><Paragraph Style="{StaticResource Lp}">社区资源详情页面会注明各个版本兼容的 Mod 加载器（#8665，@FentaJam371）</Paragraph></ListItem>
 </List><Paragraph Style="{StaticResource H2}">Bug 修复</Paragraph><List>
-<ListItem><Paragraph Style="{StaticResource Lp}">若缺少特定系统文件夹，会导致 PCL 无法删除文件夹（#8636，@qwer154899）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">可能无法更换披风（#8638，@kiun114514，PR @LinQingYuu）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">如果手速快，可以同时打开多个 PCL（#8651，PR @LinQingYuu）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">无法同时启动 3 个特定版本的游戏</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">由于出现了一个在 Java 21 不使用 JLW 导致崩溃的案例，现在在新版本 Java 也会尝试使用 JLW</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">更改皮肤失败的提示信息有误</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">土豆码校验可能失败</Paragraph></ListItem>
-</List><Paragraph Style="{StaticResource H2}">API 更改</Paragraph><List>
-<ListItem><Paragraph Style="{StaticResource Lp}">导出整合包添加“协议”选项，以导出协议文件（#8300，@19136644525lxy）</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">导出整合包的规则现在忽略大小写</Paragraph></ListItem>
-<ListItem><Paragraph Style="{StaticResource Lp}">新替换标记： <TextBox Style="{StaticResource InlineCode}">{}{pcl_sha1}</TextBox> ，PCL exe 文件的 SHA1</Paragraph></ListItem>
-</List><Paragraph Style="{StaticResource H2}">技术性更改</Paragraph><List>
-<ListItem><Paragraph Style="{StaticResource Lp}">迁移加密相关代码到 <Underline><local:MyTextButton Margin="0,0,0,-3" EventType="打开网页" EventData="https://github.com/Meloong-Git/MeloongCore/blob/master/Shared/Utils/CryptographyUtils.cs">MeloongCore.CryptographyUtils</local:MyTextButton></Underline></Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">无法解锁神秘紫隐藏主题（#8640，@LongShen51）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">Windows 7 无法正常联网（#8678，@Micro-Minecraft）</Paragraph></ListItem>
+<ListItem><Paragraph Style="{StaticResource Lp}">文件 IO 不支持相对路径（#8691，@DSHADB）</Paragraph></ListItem>
 </List>
 </FlowDocument>
 </FlowDocumentScrollViewer>
